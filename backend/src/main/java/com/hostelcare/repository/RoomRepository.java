@@ -1,0 +1,1 @@
+package com.hostelcare.repository; import com.hostelcare.entity.Room; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface RoomRepository extends JpaRepository<Room,Long> { List<Room> findByHostelHostelId(Long id); }

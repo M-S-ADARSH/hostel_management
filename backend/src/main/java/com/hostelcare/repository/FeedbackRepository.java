@@ -1,0 +1,1 @@
+package com.hostelcare.repository; import com.hostelcare.entity.Feedback; import org.springframework.data.jpa.repository.JpaRepository; public interface FeedbackRepository extends JpaRepository<Feedback,Long> { boolean existsByComplaintComplaintId(Long id); @org.springframework.data.jpa.repository.Query("select avg(f.rating) from Feedback f") Double averageRating(); }

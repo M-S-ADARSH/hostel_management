@@ -1,0 +1,3 @@
+package com.hostelcare.controller;
+import com.hostelcare.repository.*;import org.springframework.web.bind.annotation.*;import java.util.*;
+@RestController @RequestMapping("/api/public") public class PublicController {private final HostelRepository hostels;private final RoomRepository rooms;private final CategoryRepository categories;public PublicController(HostelRepository h,RoomRepository r,CategoryRepository c){hostels=h;rooms=r;categories=c;}@GetMapping("/catalog") public Map<String,Object> catalog(){return Map.of("hostels",hostels.findAll().stream().map(ViewMapper::hostel).toList(),"rooms",rooms.findAll().stream().map(ViewMapper::room).toList(),"categories",categories.findAll().stream().map(ViewMapper::category).toList());}}

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HostelCare - Hostel maintenance and complaint management portal"><title>HostelCare | Maintenance Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <main id="authView" class="auth-layout">
+    <section class="auth-aside"><div class="brand brand-light"><span class="brand-mark">H</span><span>HostelCare</span></div><div class="auth-hero"><span class="eyebrow">A BETTER WAY TO LIVE</span><h1>Maintenance made<br><em>manageable.</em></h1><p>One place to report, track and resolve every hostel maintenance issue.</p><div class="auth-points"><span>✓ Transparent complaint tracking</span><span>✓ Faster staff coordination</span><span>✓ Clear resolution history</span></div></div><div class="aside-footer">A connected campus. A cared-for community.</div></section>
+    <section class="auth-main"><div class="auth-card"><div class="mobile-brand brand"><span class="brand-mark">H</span><span>HostelCare</span></div><div class="auth-tabs"><button class="auth-tab active" data-auth="login">Sign in</button><button class="auth-tab" data-auth="register">Create account</button></div>
+      <div id="loginPanel"><span class="eyebrow">WELCOME BACK</span><h2>Sign in to your portal</h2><p class="muted">Use your registered email to continue.</p><form id="loginForm" class="form-stack"><label>Email address<input type="email" name="email" placeholder="you@college.edu" autocomplete="username" required></label><label>Password<input type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required></label><button class="btn btn-primary btn-full" type="submit">Sign in <span>→</span></button></form><p class="auth-hint">Student, staff and administrator access</p></div>
+      <div id="registerPanel" class="hidden"><span class="eyebrow">GET STARTED</span><h2>Create your student account</h2><p class="muted">Registration is open to students. Staff and admin accounts are created by an administrator.</p><form id="registerForm" class="form-stack"><label>Full name<input name="name" placeholder="Your full name" maxlength="100" required></label><label>Email address<input type="email" name="email" placeholder="you@college.edu" required></label><label>Phone number <span class="optional">Optional</span><input name="phone" placeholder="Mobile number" maxlength="15"></label><label>Hostel room<select name="roomId" id="registerRoom" required><option value="">Loading rooms…</option></select></label><label>Password<input type="password" name="password" minlength="8" placeholder="At least 8 characters" required></label><button class="btn btn-primary btn-full" type="submit">Create account <span>→</span></button></form></div>
+    </div><div class="auth-legal">By continuing, you agree to use HostelCare responsibly.</div></section>
+  </main>
+  <div id="appView" class="app-layout hidden">
+    <aside class="sidebar" id="sidebar"><div class="brand"><span class="brand-mark">H</span><span>HostelCare</span></div><div class="workspace-label">WORKSPACE</div><nav id="navLinks"></nav><div class="sidebar-bottom"><div class="help-card"><div class="help-icon">✦</div><strong>Need a hand?</strong><p>Report an issue and our team will take it from there.</p></div><button class="profile-mini" id="profileButton"><span class="avatar" id="avatarInitial">U</span><span><strong id="profileName">User</strong><small id="profileRole">STUDENT</small></span><span class="profile-dots">···</span></button><button class="logout-link" id="logoutBtn">↪ &nbsp; Sign out</button></div></aside>
+    <section class="main-area"><header class="topbar"><button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">☰</button><div><div class="breadcrumb">HOSTELCARE <span>/</span> <b id="pageCrumb">Overview</b></div><h1 id="pageTitle">Good day</h1></div><div class="topbar-right"><span class="today-date" id="todayDate"></span><span class="top-avatar" id="topAvatar">U</span></div></header><main id="pageContent" class="page-content"><div class="loading-state">Loading your workspace…</div></main><footer class="app-footer">HostelCare <span>·</span> Maintenance, made more human.</footer></section>
+  </div>
+  <script src="js/api.js"></script><script src="js/app.js"></script>
+</body></html>

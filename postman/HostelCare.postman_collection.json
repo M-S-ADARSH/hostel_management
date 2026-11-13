@@ -1,0 +1,34 @@
+{
+  "info": {"name":"HostelCare API","description":"Role-based complaint management API. Authenticate first and store the returned JWT in the token collection variable.","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable":[{"key":"baseUrl","value":"http://localhost:8080"},{"key":"token","value":""},{"key":"roomId","value":"1"},{"key":"categoryId","value":"1"},{"key":"complaintId","value":"1"},{"key":"staffId","value":"2"}],
+  "item":[
+    {"name":"Public & Authentication","item":[
+      {"name":"Public catalog","request":{"method":"GET","url":"{{baseUrl}}/api/public/catalog"}},
+      {"name":"Student register","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"name\": \"Demo Student\",\n  \"email\": \"student@example.edu\",\n  \"password\": \"ChangeMe123!\",\n  \"phone\": \"9876543210\",\n  \"roomId\": {{roomId}}\n}"},"url":"{{baseUrl}}/api/auth/register"}},
+      {"name":"Login","event":[{"listen":"test","script":{"exec":["if (pm.response.code === 200) { const data = pm.response.json(); pm.collectionVariables.set('token', data.token); }"],"type":"text/javascript"}}],"request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"email\": \"admin@hostelcare.local\",\n  \"password\": \"ChangeThisAdminPassword123!\"\n}"},"url":"{{baseUrl}}/api/auth/login"}},
+      {"name":"Current user","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/auth/me"}}
+    ]},
+    {"name":"Student","item":[
+      {"name":"My profile","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/student/profile"}},
+      {"name":"My complaints","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/student/complaints"}},
+      {"name":"Create complaint JSON","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"title\": \"Leaking tap\",\n  \"description\": \"Water is leaking continuously below the washbasin.\",\n  \"categoryId\": {{categoryId}}\n}"},"url":"{{baseUrl}}/api/complaints"}},
+      {"name":"Complaint details","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/complaints/{{complaintId}}"}},
+      {"name":"Submit feedback","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"rating\": 5,\n  \"comments\": \"Issue was fixed promptly.\"\n}"},"url":"{{baseUrl}}/api/complaints/{{complaintId}}/feedback"}},
+      {"name":"Close complaint","request":{"method":"PUT","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/complaints/{{complaintId}}/close"}}
+    ]},
+    {"name":"Admin","item":[
+      {"name":"Dashboard","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/admin/dashboard"}},
+      {"name":"All complaints","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/admin/complaints"}},
+      {"name":"Set priority HIGH","request":{"method":"PUT","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"priority\":\"HIGH\"}"},"url":"{{baseUrl}}/api/admin/complaints/{{complaintId}}/priority"}},
+      {"name":"Assign staff","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"staffId\":{{staffId}}}"},"url":"{{baseUrl}}/api/admin/complaints/{{complaintId}}/assign"}},
+      {"name":"Create staff","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"name\": \"Maintenance Staff\",\n  \"email\": \"staff@example.edu\",\n  \"password\": \"ChangeMe123!\",\n  \"phone\": \"9876543210\"\n}"},"url":"{{baseUrl}}/api/admin/staff"}},
+      {"name":"Reports summary","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/admin/reports/summary"}},
+      {"name":"Export CSV","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/admin/reports/export"}}
+    ]},
+    {"name":"Staff","item":[
+      {"name":"Assigned tasks","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/staff/assignments"}},
+      {"name":"Set in progress","request":{"method":"PUT","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"status\":\"IN_PROGRESS\",\"remarks\":\"Inspection started.\"}"},"url":"{{baseUrl}}/api/staff/complaints/{{complaintId}}/status"}},
+      {"name":"Resolve task","request":{"method":"PUT","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"status\":\"RESOLVED\",\"remarks\":\"Repair completed and tested.\"}"},"url":"{{baseUrl}}/api/staff/complaints/{{complaintId}}/status"}}
+    ]}
+  ]
+}
